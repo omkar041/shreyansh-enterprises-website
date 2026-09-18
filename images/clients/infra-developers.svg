@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 80" width="100%" height="100%">
+  <!-- INFRA DEVELOPERS Logo -->
+  <g transform="translate(15, 10)">
+    <!-- Building / Infrastructure Icon -->
+    <path d="M 10 50 L 30 15 L 50 50 Z" fill="#0077C8" />
+    <path d="M 25 50 L 45 20 L 65 50 Z" fill="#00A3E0" opacity="0.8" />
+    <text x="75" y="36" font-family="'Inter', sans-serif" font-weight="900" font-size="20" fill="#0A2540" letter-spacing="1">INFRA DEVELOPERS</text>
+    <text x="76" y="52" font-family="'Inter', sans-serif" font-weight="600" font-style="italic" font-size="12" fill="#0077C8">Inspiring Better Lives</text>
+  </g>
+</svg>
