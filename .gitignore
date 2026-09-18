@@ -1,0 +1,19 @@
+# Security & Secret exclusions
+.env
+.env.*
+*.log
+credentials
+*.pem
+*.key
+
+# Dependencies & Build artifacts
+node_modules/
+venv/
+.venv/
+__pycache__/
+
+# System & Editor files
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
