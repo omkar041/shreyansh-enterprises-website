@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 250 80" width="100%" height="100%">
+  <!-- THERMAX Logo -->
+  <g transform="translate(15, 15)">
+    <!-- Red T Icon -->
+    <path d="M 0 0 H 35 V 10 H 23 V 50 H 12 V 10 H 0 Z" fill="#E31E24" />
+    <path d="M 0 0 H 35 V 18 H 23 V 50 H 12 V 18 H 0 Z" fill="#E31E24" />
+    <text x="50" y="38" font-family="'Inter', sans-serif" font-weight="900" font-size="26" fill="#111111" letter-spacing="3">THERMAX</text>
+  </g>
+</svg>
