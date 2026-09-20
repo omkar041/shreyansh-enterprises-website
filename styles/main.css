@@ -489,7 +489,7 @@ img {
   color: var(--primary);
 }
 
-/* Hero Section & Subtle Parallax */
+/* Hero Section & Visual Depth Elements */
 .hero-section {
   position: relative;
   min-height: 88vh;

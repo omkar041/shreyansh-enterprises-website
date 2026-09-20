@@ -15,7 +15,21 @@ document.addEventListener('DOMContentLoaded', () => {
   initMagneticButtons();
   initCardTilt();
   initSmoothAnchorScrolling();
+  initHeroEntrance();
 });
+
+/* Hero Entrance Animation Trigger */
+function initHeroEntrance() {
+  const heroSection = document.querySelector('.hero-section');
+  if (!heroSection) return;
+
+  // Add loaded class on next frame for smooth entrance
+  requestAnimationFrame(() => {
+    setTimeout(() => {
+      heroSection.classList.add('loaded');
+    }, 60);
+  });
+}
 
 /* Scroll Progress Indicator Bar at Top of Page */
 function initScrollProgressBar() {
