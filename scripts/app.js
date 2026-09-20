@@ -18,15 +18,14 @@ document.addEventListener('DOMContentLoaded', () => {
   initHeroEntrance();
 });
 
-/* Hero Entrance Animation Trigger */
+/* Hero & Subpage Entrance Animation Trigger */
 function initHeroEntrance() {
-  const heroSection = document.querySelector('.hero-section');
+  const heroSection = document.querySelector('.hero-section, .subpage-hero');
   if (!heroSection) return;
 
-  // Add loaded class on next frame for smooth entrance
   requestAnimationFrame(() => {
     setTimeout(() => {
-      heroSection.classList.add('loaded');
+      document.querySelectorAll('.hero-section, .subpage-hero').forEach(el => el.classList.add('loaded'));
     }, 60);
   });
 }
