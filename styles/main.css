@@ -697,6 +697,9 @@ img {
   flex-direction: column;
   height: 100%;
   position: relative;
+  cursor: pointer;
+  text-decoration: none;
+  color: inherit;
 }
 
 .service-card:hover {
