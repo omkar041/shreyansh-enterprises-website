@@ -1276,6 +1276,11 @@ img {
   align-items: center;
   justify-content: space-between;
   flex-wrap: wrap;
+  gap: 16px;
+  color: var(--gray-500);
+  font-size: 0.88rem;
+}
+
 .contact-info-card {
   position: relative;
   background: linear-gradient(135deg, var(--primary) 0%, #351B60 100%);
@@ -1735,6 +1740,13 @@ img {
 }
 
 /* Responsive Media Queries */
+@media (max-width: 1280px) {
+  .container {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+}
+
 @media (max-width: 1024px) {
   .hero-container, 
   .about-grid, 
@@ -1757,6 +1769,14 @@ img {
   .service-card {
     transform: none !important;
   }
+  .about-image-wrapper img {
+    height: auto;
+    max-height: 400px;
+  }
+  .service-detail-img-box img {
+    height: auto;
+    max-height: 360px;
+  }
 }
 
 @media (max-width: 768px) {
@@ -1767,7 +1787,7 @@ img {
     display: block;
   }
   .section {
-    padding: 60px 0;
+    padding: 56px 0;
   }
   .pillars-grid, 
   .industries-grid {
@@ -1788,21 +1808,32 @@ img {
   }
   .floating-whatsapp {
     padding: 14px;
+    bottom: 20px;
+    right: 20px;
     border-radius: 50%;
   }
   .subpage-hero {
+    padding-top: calc(var(--header-height) + 36px);
+    padding-bottom: 40px;
+  }
+  .hero-section {
     padding-top: calc(var(--header-height) + 40px);
-    padding-bottom: 44px;
+    padding-bottom: 60px;
+    min-height: auto;
   }
 }
 
 @media (max-width: 480px) {
+  .container {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
   .logo-wall {
     grid-template-columns: 1fr;
   }
   .contact-info-card, 
   .contact-form-wrapper {
-    padding: 28px 20px;
+    padding: 24px 18px;
   }
   .hero-actions {
     flex-direction: column;
@@ -1812,6 +1843,21 @@ img {
     width: 100%;
   }
   .hero-card-stat {
-    padding: 24px;
+    padding: 20px 18px;
+  }
+  .btn-lg {
+    padding: 14px 24px;
+    font-size: 0.95rem;
+  }
+}
+
+@media (max-width: 360px) {
+  .contact-info-card, 
+  .contact-form-wrapper {
+    padding: 20px 14px;
+  }
+  .section-badge {
+    font-size: 0.75rem;
+    padding: 4px 10px;
   }
 }
