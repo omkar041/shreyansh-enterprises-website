@@ -667,17 +667,38 @@ img {
   overflow: hidden;
   box-shadow: var(--shadow-md);
   border: 1px solid var(--gray-200);
+  transition: transform var(--transition-normal), box-shadow var(--transition-normal), border-color var(--transition-normal);
+}
+
+.about-image-wrapper::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, transparent 70%, rgba(79, 42, 138, 0.2) 100%);
+  opacity: 0;
+  transition: opacity var(--transition-normal);
+  pointer-events: none;
+}
+
+.about-image-wrapper:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 20px 40px rgba(79, 42, 138, 0.14);
+  border-color: rgba(79, 42, 138, 0.3);
+}
+
+.about-image-wrapper:hover::after {
+  opacity: 1;
 }
 
 .about-image-wrapper img {
   width: 100%;
   height: 440px;
   object-fit: cover;
-  transition: transform var(--transition-normal);
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), filter var(--transition-normal);
 }
 
 .about-image-wrapper:hover img {
-  transform: scale(1.04);
+  transform: scale(1.05);
 }
 
 /* Service Cards & Smooth Zoom Effects */
@@ -902,29 +923,54 @@ img {
   overflow: hidden;
   height: 280px;
   box-shadow: var(--shadow-sm);
+  border: 1px solid var(--gray-200);
+  transition: transform var(--transition-normal), box-shadow var(--transition-normal), border-color var(--transition-normal);
+}
+
+.industry-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at center, rgba(240, 68, 56, 0.15) 0%, transparent 75%);
+  opacity: 0;
+  transition: opacity var(--transition-normal);
+  z-index: 2;
+  pointer-events: none;
+}
+
+.industry-card:hover::before {
+  opacity: 1;
 }
 
 .industry-card img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform var(--transition-normal);
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), filter var(--transition-normal);
 }
 
 .industry-overlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(to top, rgba(17, 17, 17, 0.9) 0%, rgba(17, 17, 17, 0.2) 60%, transparent 100%);
+  background: linear-gradient(to top, rgba(17, 17, 17, 0.92) 0%, rgba(17, 17, 17, 0.3) 60%, transparent 100%);
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
   padding: 24px;
   color: var(--white);
+  z-index: 3;
   transition: background var(--transition-normal);
 }
 
+.industry-card:hover {
+  transform: translateY(-8px);
+  border-color: rgba(240, 68, 56, 0.4);
+  box-shadow: 0 16px 36px rgba(17, 17, 17, 0.18);
+}
+
 .industry-card:hover img {
-  transform: scale(1.08);
+  transform: scale(1.1);
+  filter: brightness(1.05);
 }
 
 .industry-num {
@@ -933,6 +979,11 @@ img {
   color: var(--accent);
   letter-spacing: 0.1em;
   margin-bottom: 4px;
+  transition: transform var(--transition-fast);
+}
+
+.industry-card:hover .industry-num {
+  transform: translateX(4px);
 }
 
 .industry-title {
