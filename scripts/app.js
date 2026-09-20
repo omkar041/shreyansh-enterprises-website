@@ -10,7 +10,139 @@ document.addEventListener('DOMContentLoaded', () => {
   initContactForm();
   initScrollReveals();
   initHeroParallax();
+  initScrollProgressBar();
+  initCursorGlow();
+  initMagneticButtons();
+  initCardTilt();
+  initSmoothAnchorScrolling();
 });
+
+/* Scroll Progress Indicator Bar at Top of Page */
+function initScrollProgressBar() {
+  let bar = document.querySelector('.scroll-progress-bar');
+  if (!bar) {
+    bar = document.createElement('div');
+    bar.className = 'scroll-progress-bar';
+    document.body.prepend(bar);
+  }
+
+  let ticking = false;
+  const updateProgress = () => {
+    const totalHeight = document.documentElement.scrollHeight - window.innerHeight;
+    if (totalHeight > 0) {
+      const percentage = (window.scrollY / totalHeight) * 100;
+      bar.style.width = `${Math.min(100, Math.max(0, percentage))}%`;
+    }
+    ticking = false;
+  };
+
+  window.addEventListener('scroll', () => {
+    if (!ticking) {
+      window.requestAnimationFrame(updateProgress);
+      ticking = true;
+    }
+  }, { passive: true });
+}
+
+/* Desktop Custom Cursor Spotlight/Glow */
+function initCursorGlow() {
+  if (window.matchMedia('(max-width: 1024px)').matches || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+  let glow = document.querySelector('.custom-cursor-glow');
+  if (!glow) {
+    glow = document.createElement('div');
+    glow.className = 'custom-cursor-glow';
+    document.body.appendChild(glow);
+  }
+
+  let mouseX = 0, mouseY = 0;
+  let ticking = false;
+
+  document.addEventListener('mousemove', (e) => {
+    mouseX = e.clientX;
+    mouseY = e.clientY;
+
+    if (!ticking) {
+      window.requestAnimationFrame(() => {
+        glow.style.transform = `translate3d(${mouseX}px, ${mouseY}px, 0)`;
+        glow.style.opacity = '1';
+        ticking = false;
+      });
+      ticking = true;
+    }
+  }, { passive: true });
+
+  document.addEventListener('mouseleave', () => {
+    glow.style.opacity = '0';
+  });
+}
+
+/* Magnetic Hover Pull Effect for Primary & Accent CTA Buttons (Desktop Only) */
+function initMagneticButtons() {
+  if (window.matchMedia('(max-width: 1024px)').matches || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+  const magneticBtns = document.querySelectorAll('.btn-primary, .btn-accent, .btn-whatsapp');
+
+  magneticBtns.forEach(btn => {
+    btn.addEventListener('mousemove', (e) => {
+      const rect = btn.getBoundingClientRect();
+      const x = e.clientX - rect.left - rect.width / 2;
+      const y = e.clientY - rect.top - rect.height / 2;
+
+      btn.style.transform = `translate3d(${x * 0.22}px, ${y * 0.22}px, 0) scale(1.03)`;
+    });
+
+    btn.addEventListener('mouseleave', () => {
+      btn.style.transform = 'translate3d(0, 0, 0) scale(1)';
+    });
+  });
+}
+
+/* 3D Soft Tilt Effect for Service Cards (Desktop Only) */
+function initCardTilt() {
+  if (window.matchMedia('(max-width: 1024px)').matches || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+  const cards = document.querySelectorAll('.service-card, .pillar-card, .industry-card');
+
+  cards.forEach(card => {
+    card.addEventListener('mousemove', (e) => {
+      const rect = card.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+
+      const centerX = rect.width / 2;
+      const centerY = rect.height / 2;
+
+      const rotateX = ((y - centerY) / centerY) * -5;
+      const rotateY = ((x - centerX) / centerX) * 5;
+
+      card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-6px)`;
+    });
+
+    card.addEventListener('mouseleave', () => {
+      card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) translateY(0)';
+    });
+  });
+}
+
+/* Smooth Anchor Link Scrolling for # hash links */
+function initSmoothAnchorScrolling() {
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function(e) {
+      const targetId = this.getAttribute('href');
+      if (targetId === '#' || !targetId) return;
+
+      const targetElement = document.querySelector(targetId);
+      if (targetElement) {
+        e.preventDefault();
+        targetElement.scrollIntoView({
+          behavior: 'smooth',
+          block: 'start'
+        });
+      }
+    });
+  });
+}
 
 /* Sticky Navigation Bar */
 function initNavbar() {
@@ -29,10 +161,17 @@ function initNavbar() {
   handleScroll();
 }
 
-/* Lightweight Scroll Fade-Up Reveal Observer */
+/* Lightweight Scroll Fade-Up Reveal Observer with Stagger Support */
 function initScrollReveals() {
-  // Respect prefers-reduced-motion
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+  const grids = document.querySelectorAll('.services-grid, .pillars-grid, .industries-grid, .logo-wall');
+  grids.forEach(grid => {
+    const children = grid.children;
+    Array.from(children).forEach((child, index) => {
+      child.classList.add(`delay-${(index % 4) + 1}`);
+    });
+  });
 
   const revealTargets = document.querySelectorAll(
     '.service-card, .pillar-card, .industry-card, .client-logo-item, .contact-info-card, .contact-form-wrapper, .section-header, .about-image-wrapper'
