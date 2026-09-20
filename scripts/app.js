@@ -8,6 +8,8 @@ document.addEventListener('DOMContentLoaded', () => {
   initMobileMenu();
   initActiveNav();
   initContactForm();
+  initScrollReveals();
+  initHeroParallax();
 });
 
 /* Sticky Navigation Bar */
@@ -16,7 +18,7 @@ function initNavbar() {
   if (!navbar) return;
 
   const handleScroll = () => {
-    if (window.scrollY > 30) {
+    if (window.scrollY > 20) {
       navbar.classList.add('scrolled');
     } else {
       navbar.classList.remove('scrolled');
@@ -25,6 +27,66 @@ function initNavbar() {
 
   window.addEventListener('scroll', handleScroll, { passive: true });
   handleScroll();
+}
+
+/* Lightweight Scroll Fade-Up Reveal Observer */
+function initScrollReveals() {
+  // Respect prefers-reduced-motion
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+  const revealTargets = document.querySelectorAll(
+    '.service-card, .pillar-card, .industry-card, .client-logo-item, .contact-info-card, .contact-form-wrapper, .section-header, .about-image-wrapper'
+  );
+
+  revealTargets.forEach(el => {
+    el.classList.add('reveal-fade');
+  });
+
+  const observerOptions = {
+    root: null,
+    rootMargin: '0px 0px -40px 0px',
+    threshold: 0.12
+  };
+
+  const observer = new IntersectionObserver((entries, observerInstance) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('revealed');
+        observerInstance.unobserve(entry.target);
+      }
+    });
+  }, observerOptions);
+
+  revealTargets.forEach(el => observer.observe(el));
+}
+
+/* Subtle Hero Image Parallax (rAF optimized) */
+function initHeroParallax() {
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+  const heroBg = document.querySelector('.hero-bg-media');
+  const heroSection = document.querySelector('.hero-section');
+  if (!heroBg || !heroSection) return;
+
+  let ticking = false;
+
+  const updateParallax = () => {
+    const scrolled = window.scrollY;
+    const heroHeight = heroSection.offsetHeight;
+
+    if (scrolled <= heroHeight) {
+      const translateY = scrolled * 0.28;
+      heroBg.style.transform = `translateY(${translateY}px)`;
+    }
+    ticking = false;
+  };
+
+  window.addEventListener('scroll', () => {
+    if (!ticking) {
+      window.requestAnimationFrame(updateParallax);
+      ticking = true;
+    }
+  }, { passive: true });
 }
 
 /* Mobile Hamburger Menu & Backdrop Drawer */
