@@ -785,6 +785,10 @@ img {
   filter: brightness(0.96);
 }
 
+.service-card * {
+  pointer-events: none;
+}
+
 .service-number {
   font-family: var(--font-heading);
   font-size: 2rem;
