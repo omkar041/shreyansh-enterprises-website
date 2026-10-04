@@ -692,7 +692,7 @@ img {
 
 .about-image-wrapper img {
   width: 100%;
-  height: 440px;
+  height: 300px;
   object-fit: cover;
   transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), filter var(--transition-normal);
 }
